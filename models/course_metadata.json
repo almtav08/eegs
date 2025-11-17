@@ -1,0 +1,38 @@
+{
+    "course_start_date": "2023-09-05T15:27:38",
+    "course_end_date": "2024-02-29T10:26:19",
+    "peak_dates": [
+        "2023-09-19T00:00:00",
+        "2024-01-17T00:00:00"
+    ],
+    "total_unique_items_in_course": 122,
+    "features_for_clustering": [
+        "total_clicks",
+        "total_sessions",
+        "avg_delta_t_sec",
+        "zapping_ratio",
+        "activity_span_days",
+        "first_week_ratio",
+        "procrastination_ratio",
+        "num_unique_items",
+        "num_active_days",
+        "regularity_ratio",
+        "night_owl_ratio",
+        "avg_clicks_per_item",
+        "fixation_ratio",
+        "std_dev_daily_clicks",
+        "weekend_ratio",
+        "mid_course_ratio",
+        "activity_slope",
+        "std_dev_hour_session_start",
+        "ratio_short_breaks",
+        "percentile_80_delta_t",
+        "max_consecutive_days",
+        "avg_inactive_days",
+        "coverage_ratio",
+        "progress_ratio",
+        "backward_prereq_ratio",
+        "revisit_ratio"
+    ],
+    "ARCHETYPE_A_ANALIZAR": 1
+}

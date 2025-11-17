@@ -1,0 +1,106 @@
+{
+    "first_week_ratio": {
+        "direction": 1,
+        "glossary": "The amount of your study activity that happens in the first week."
+    },
+    "weekend_ratio": {
+        "direction": 1,
+        "glossary": "The proportion of your study activity that you do on weekends."
+    },
+    "revisit_ratio": {
+        "direction": 1,
+        "glossary": "How often you revisit older materials (not the one you just saw)."
+    },
+    "max_consecutive_days": {
+        "direction": 1,
+        "glossary": "Your longest streak of studying on consecutive days."
+    },
+    "regularity_ratio": {
+        "direction": 1,
+        "glossary": "The consistency and regularity of your study sessions."
+    },
+    "num_active_days": {
+        "direction": 1,
+        "glossary": "The total number of unique days you have been active in the course."
+    },
+    "activity_slope": {
+        "direction": 1,
+        "glossary": "The trend of your activity over time (a higher value means less of a drop-off)."
+    },
+    "total_sessions": {
+        "direction": 1,
+        "glossary": "The total number of study sessions you have started (starts separated by >30 min)."
+    },
+    "avg_clicks_per_item": {
+        "direction": 1,
+        "glossary": "The average number of times you interact with each course item."
+    },
+    "avg_delta_t_sec": {
+        "direction": 1,
+        "glossary": "The average time (in seconds) you spend between clicks."
+    },
+    "mid_course_ratio": {
+        "direction": 1,
+        "glossary": "The proportion of your work done in the second half of the course compared to the first half (measures 'acceleration' or 'desertion')."
+    },
+    "num_unique_items": {
+        "direction": 1,
+        "glossary": "The number of unique course items you have accessed."
+    },
+    "coverage_ratio": {
+        "direction": 1,
+        "glossary": "The percentage of unique course materials you have visited."
+    },
+    "night_owl_ratio": {
+        "direction": -1,
+        "glossary": "The proportion of your activity that occurs late at night."
+    },
+    "std_dev_hour_session_start": {
+        "direction": -1,
+        "glossary": "The variation in the time of day you start studying."
+    },
+    "zapping_ratio": {
+        "direction": -1,
+        "glossary": "How often you switch between resources very quickly (in just a few seconds)."
+    },
+    "ratio_short_breaks": {
+        "direction": -1,
+        "glossary": "The proportion of your study breaks that are very short."
+    },
+    "progress_ratio": {
+        "direction": -1,
+        "glossary": "Your overall rate of progressing through the course materials."
+    },
+    "total_clicks": {
+        "direction": 1,
+        "glossary": "The total number of clicks you've made in the course."
+    },
+    "percentile_80_delta_t": {
+        "direction": -1,
+        "glossary": "The 80th percentile of time between your clicks (fewer very long pauses is better)."
+    },
+    "activity_span_days": {
+        "direction": -1,
+        "glossary": "The total number of days between your first and last activity."
+    },
+    "fixation_ratio": {
+        "direction": -1,
+        "glossary": "The tendency to focus your activity on a small set of items."
+    },
+    "avg_inactive_days": {
+        "direction": -1,
+        "glossary": "The average number of days you go without studying."
+    },
+    "std_dev_daily_clicks": {
+        "direction": -1,
+        "glossary": "The variation in your number of clicks from day to day (less variation is better)."
+    },
+    "procrastination_ratio": {
+        "direction": -1,
+        "glossary": "The tendency to concentrate your study activity near deadlines."
+    },
+    "backward_prereq_ratio": {
+        "direction": -1,
+        "glossary": "How often you return to the immediately preceding resource (can signal confusion)."
+    }
+}
