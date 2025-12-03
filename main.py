@@ -46,41 +46,41 @@ if __name__ == "__main__":
 
     results = {}
 
-    # print(f"\n--- Generating Recommendation for Scenario 1 - The ideal student ---")
-    #
-    # last_item = "54"
-    # last_item_name = "C6: El modo framebuffer de la NDS"
-    #
-    # user_profile = ideal_user_profile.copy()
-    #
-    # recommendation = recommender.recommend(
-    #     user_profile=user_profile,
-    #     last_visited_item=last_item,
-    #     max_recommendations=3,
-    #     last_item_name=last_item_name,
-    #     generate="both",
-    # )
-    #
-    # results['scenario_1'] = recommendation["message"]
-    #
-    # print(f"\n--- Generating Recommendation for Scenario 2 - The Procrastinator ---")
-    #
-    # last_item = "54"
-    # last_item_name = "C6: El modo framebuffer de la NDS"
-    #
-    # user_profile = ideal_user_profile.copy()
-    # user_profile["procrastination_ratio"] = 1.5
-    #
-    # recommendation = recommender.recommend(
-    #     user_profile=user_profile,
-    #     last_visited_item=last_item,
-    #     max_recommendations=3,
-    #     last_item_name=last_item_name,
-    #     generate="both",
-    # )
-    #
-    # results['scenario_2'] = recommendation["message"]
-    #
+    print(f"\n--- Generating Recommendation for Scenario 1 - The ideal student ---")
+    
+    last_item = "54"
+    last_item_name = "C6: El modo framebuffer de la NDS"
+    
+    user_profile = ideal_user_profile.copy()
+    
+    recommendation = recommender.recommend(
+        user_profile=user_profile,
+        last_visited_item=last_item,
+        max_recommendations=3,
+        last_item_name=last_item_name,
+        generate="both",
+    )
+    
+    results['scenario_1'] = recommendation["message"]
+    
+    print(f"\n--- Generating Recommendation for Scenario 2 - The Procrastinator ---")
+    
+    last_item = "54"
+    last_item_name = "C6: El modo framebuffer de la NDS"
+    
+    user_profile = ideal_user_profile.copy()
+    user_profile["procrastination_ratio"] = 1.5
+    
+    recommendation = recommender.recommend(
+        user_profile=user_profile,
+        last_visited_item=last_item,
+        max_recommendations=3,
+        last_item_name=last_item_name,
+        generate="both",
+    )
+    
+    results['scenario_2'] = recommendation["message"]
+    
     print(f"\n--- Generating Recommendation for Scenario 3 - The confused ---")
 
     last_item = "55"
@@ -98,63 +98,63 @@ if __name__ == "__main__":
     )
 
     results["scenario_3"] = recommendation["message"]
-    #
-    # print(f"\n--- Generating Recommendation for Scenario 4 - The weekend player ---")
-    #
-    # last_item = "120"
-    # last_item_name = "Examen: Juego NDS"
-    #
-    # user_profile = ideal_user_profile.copy()
-    # user_profile["weekend_ratio"] = 0.3
-    # user_profile["regularity_ratio"] = 0.15
-    #
-    # recommendation = recommender.recommend(
-    #     user_profile=user_profile,
-    #     last_visited_item=last_item,
-    #     max_recommendations=3,
-    #     last_item_name=last_item_name,
-    #     generate="both",
-    # )
-    #
-    # results["scenario_4"] = recommendation["message"]
-    #
-    # print(f"\n--- Generating Recommendation for Scenario 5 - The positive streak ---")
-    #
-    # last_item = "54"
-    # last_item_name = "C6: El modo framebuffer de la NDS"
-    #
-    # user_profile = ideal_user_profile.copy()
-    # user_profile["max_consecutive_days"] = 12
-    #
-    # recommendation = recommender.recommend(
-    #     user_profile=user_profile,
-    #     last_visited_item=last_item,
-    #     max_recommendations=3,
-    #     last_item_name=last_item_name,
-    #     generate="both",
-    # )
-    #
-    # results["scenario_5"] = recommendation["message"]
-    #
-    # print(f"\n--- Generating Recommendation for Scenario 6 - The zapper ---")
-    #
-    # last_item = "54"
-    # last_item_name = "C6: El modo framebuffer de la NDS"
-    #
-    # user_profile = ideal_user_profile.copy()
-    # user_profile["zapping_ratio"] = 0.95
-    # user_profile["avg_delta_t_sec"] = 75
-    #
-    # recommendation = recommender.recommend(
-    #     user_profile=user_profile,
-    #     last_visited_item=last_item,
-    #     max_recommendations=3,
-    #     last_item_name=last_item_name,
-    #     generate="both",
-    # )
-    #
-    # results["scenario_6"] = recommendation["message"]
-    #
+    
+    print(f"\n--- Generating Recommendation for Scenario 4 - The weekend player ---")
+    
+    last_item = "120"
+    last_item_name = "Examen: Juego NDS"
+    
+    user_profile = ideal_user_profile.copy()
+    user_profile["weekend_ratio"] = 0.3
+    user_profile["regularity_ratio"] = 0.15
+    
+    recommendation = recommender.recommend(
+        user_profile=user_profile,
+        last_visited_item=last_item,
+        max_recommendations=3,
+        last_item_name=last_item_name,
+        generate="both",
+    )
+    
+    results["scenario_4"] = recommendation["message"]
+    
+    print(f"\n--- Generating Recommendation for Scenario 5 - The positive streak ---")
+    
+    last_item = "54"
+    last_item_name = "C6: El modo framebuffer de la NDS"
+    
+    user_profile = ideal_user_profile.copy()
+    user_profile["max_consecutive_days"] = 12
+    
+    recommendation = recommender.recommend(
+        user_profile=user_profile,
+        last_visited_item=last_item,
+        max_recommendations=3,
+        last_item_name=last_item_name,
+        generate="both",
+    )
+    
+    results["scenario_5"] = recommendation["message"]
+    
+    print(f"\n--- Generating Recommendation for Scenario 6 - The zapper ---")
+    
+    last_item = "54"
+    last_item_name = "C6: El modo framebuffer de la NDS"
+    
+    user_profile = ideal_user_profile.copy()
+    user_profile["zapping_ratio"] = 0.95
+    user_profile["avg_delta_t_sec"] = 75
+    
+    recommendation = recommender.recommend(
+        user_profile=user_profile,
+        last_visited_item=last_item,
+        max_recommendations=3,
+        last_item_name=last_item_name,
+        generate="both",
+    )
+    
+    results["scenario_6"] = recommendation["message"]
+    
     llm_client.stop()
     
     with open("recommendations.json", "w", encoding="utf-8") as f:
