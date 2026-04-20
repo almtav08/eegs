@@ -13,7 +13,7 @@ if __name__ == "__main__":
     with open("models/behavior.json", "r") as f:
         METRIC_BEHAVIOR = json.load(f)
 
-    PROJECT_ID = "hybrid-ridge-476409-c2"
+    PROJECT_ID = ""
     REGION = "us-central1"
 
     ideal_user_profile = IDEAL_PROFILE.copy()

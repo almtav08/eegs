@@ -471,3 +471,232 @@ ax2.legend(
 plt.tight_layout()
 plt.savefig("figs/analisis_arquetipos.eps", format="eps")
 print("Figure saved with READABLE metric names.")
+
+# --- 6. VISUALIZACIÓN DIFERENCIAS: CONSISTENTS PASS vs FAIL ---
+print("\n--- 6. Visualizing Consistents: Pass vs Fail Differences ---")
+
+# Datos JSON proporcionados
+with open("models/pct_diff.json", "r") as f:
+    diff_data = json.load(f)
+
+# Crear DataFrame a partir del diccionario
+# Crear DataFrame a partir del diccionario
+df_diff = pd.DataFrame(list(diff_data.items()), columns=["Metric_Raw", "Pct_Diff"])
+
+# Mapear nombres técnicos a nombres legibles
+df_diff["Metric_Readable"] = df_diff["Metric_Raw"].map(readable_metrics)
+df_diff["Metric_Readable"] = df_diff["Metric_Readable"].fillna(df_diff["Metric_Raw"])
+
+# Ordenar: Los valores negativos quedan arriba (índice 0) y los positivos grandes abajo (índice N)
+df_diff = df_diff.sort_values("Pct_Diff", ascending=True)
+
+# Configurar gráfico
+plt.figure(figsize=(14, 15))
+
+# Colores
+colors = ["#d62728" if x < 0 else "#2ca02c" for x in df_diff["Pct_Diff"]]
+
+# Crear barras
+bars = plt.barh(
+    df_diff["Metric_Readable"],
+    df_diff["Pct_Diff"],
+    color=colors,
+    edgecolor="black",
+    alpha=0.8,
+)
+
+# Identificar cuál es la barra del "First Week Ratio" (la última, ya que está ordenado ascendente)
+# O simplemente la que tiene el valor máximo.
+max_val_idx = df_diff["Pct_Diff"].argmax()
+
+
+# Añadir etiquetas con la lógica solicitada
+for i, bar in enumerate(bars):
+    width = bar.get_width()
+
+    # 1. CASO ESPECIAL: La barra más larga (First Week Ratio) -> Etiqueta DENTRO
+    if i == max_val_idx:
+        # Colocamos el texto dentro, restando posición a la anchura
+        label_x_pos = width - 5  # Un poco a la izquierda del borde derecho
+        ha_alignment = "right"  # Alineado a la derecha
+        text_color = "white"  # Blanco para contraste con la barra verde
+
+    # 2. CASO GENERAL: Etiquetas FUERA y SEPARADAS
+    else:
+        text_color = "black"
+        if width > 0:
+            # Barra positiva: Etiqueta a la derecha
+            label_x_pos = width + 1.5  # Separación positiva
+            ha_alignment = "left"
+        else:
+            # Barra negativa: Etiqueta a la izquierda
+            label_x_pos = 1.5  # Separación negativa
+            ha_alignment = "left"
+
+    plt.text(
+        label_x_pos,
+        bar.get_y() + bar.get_height() / 2,
+        f"{width:+.1f}%",
+        va="center",
+        ha=ha_alignment,
+        fontsize=16,
+        fontweight="bold",
+        color=text_color,
+    )
+
+# Estética
+plt.axvline(0, color="black", linewidth=1.2)
+plt.title(
+    "Consistents Archetype: Differentiating Factors (Pass vs. Fail)",
+    fontsize=16,
+    fontweight="bold",
+)
+plt.xlabel(
+    "% Difference (Positive = Higher in Passing Students)",
+    fontsize=16,
+    fontweight="bold",
+)
+plt.yticks(fontsize=16)
+plt.grid(axis="x", linestyle="--", alpha=0.6)
+
+# Ajuste de márgenes para que quepan las etiquetas
+plt.tight_layout()
+
+plt.savefig("figs/consistent_diff.png", format="png")
+print("Figure saved: figs/diferencias_consistents_pass_vs_fail.png")
+
+# Añadir al final de tu script arch.py
+
+import numpy as np
+
+# 1. Calcular los centroides (medias de Z-Scores por arquetipo)
+# Usamos df_melted que ya creaste, agrupando por arquetipo y métrica
+archetype_centroids = (
+    df_melted.groupby(["archetype_name", "Metric"])["Z-Score"].mean().unstack()
+)
+
+# Seleccionamos solo algunas métricas clave para no saturar el radar
+key_metrics = [
+    "Total Clicks",
+    "Active Days",
+    "Regularity Ratio",
+    "Procrastination\nRatio",
+    "Zapping Ratio\n(<1min)",
+    "Course Coverage\nRatio",
+    "Revisit Ratio",
+]
+key_metrics = list(readable_metrics.values())
+# Aseguramos que existan en el DF
+key_metrics = [m for m in key_metrics if m in archetype_centroids.columns]
+
+# 2. Preparar datos para Radar
+categories = key_metrics
+N = len(categories)
+angles = [n / float(N) * 2 * np.pi for n in range(N)]
+angles += angles[:1]  # Cerrar el círculo
+
+plt.figure(figsize=(10, 10))
+ax = plt.subplot(111, polar=True)
+
+# Colores manuales para coincidir con tu lógica
+palette = {
+    "Dropouts": "#2ca02c",
+    "Consistents": "#d62728",
+    "Erratics": "#1f77b4",
+}  # Ajusta según tu paleta
+
+# 3. Dibujar cada arquetipo
+for archetype in ["Dropouts", "Consistents", "Erratics"]:
+    values = archetype_centroids.loc[archetype, categories].values.flatten().tolist()
+    values += values[:1]  # Cerrar el círculo
+
+    # Ajuste visual: Los radares funcionan mejor con valores positivos.
+    # Aquí sumamos un offset (ej. +3) para que el Z-score negativo no rompa el gráfico,
+    # o escalamos los datos previamente (MinMax).
+    # Para este ejemplo rápido, usaremos los Z-scores directos pero cuidado con los negativos.
+    # Una mejor opción es usar MinMaxScaling solo para el radar.
+
+    ax.plot(angles, values, linewidth=4, linestyle="solid", label=archetype)
+    # ax.fill(angles, values, alpha=0.25)
+
+ax.set_xticks(angles[:-1])
+ax.set_xticklabels([])
+
+label_radius = ax.get_rmax() * 1.08  # separa las labels del radar
+delta = 0  # ajuste fino en grados
+
+for angle, label in zip(angles[:-1], categories):
+    angle_deg = np.degrees(angle)
+
+    # Orientación "hacia fuera"
+    if 90 < angle_deg < 270:
+        rotation = angle_deg + 180 + delta
+        ha = "center"
+    else:
+        rotation = angle_deg + delta
+        ha = "center"
+
+    ax.text(
+        angle,
+        label_radius,
+        label,
+        size=14,
+        rotation=rotation,
+        rotation_mode="anchor",
+        horizontalalignment=ha,
+        verticalalignment="center",
+    )
+
+
+plt.title("Archetype Fingerprints", size=20, y=1.1, fontsize=16)
+plt.legend(loc="upper right", bbox_to_anchor=(0.1, 0.1), fontsize=14)
+plt.tight_layout()
+plt.savefig("figs/archetypes.eps", format="eps")
+
+plt.figure(figsize=(12, 10))
+
+# Reordenamos las métricas como en tu gráfico original
+heatmap_data = archetype_centroids[ordered_features_readable].T
+
+sns.heatmap(
+    heatmap_data,
+    cmap="coolwarm",
+    center=0,
+    annot=True,
+    fmt=".1f",
+    linewidths=0.5,
+    cbar_kws={"label": "Z-Score (Mean)"},
+)
+
+plt.title("Heatmap of Behavioral Centroids", fontsize=16)
+plt.xlabel("Archetype")
+plt.ylabel("Metric")
+plt.tight_layout()
+plt.savefig("figs/heatmap_archetypes.png")
+
+from sklearn.decomposition import PCA
+
+# Reducir a 2 dimensiones
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X_scaled)  # Usamos tus datos escalados
+
+df_pca = pd.DataFrame(X_pca, columns=["PC1", "PC2"])
+df_pca["Archetype"] = df_features["archetype_name"].values
+df_pca["Outcome"] = df_features["outcome"].values
+
+plt.figure(figsize=(10, 8))
+sns.scatterplot(
+    data=df_pca,
+    x="PC1",
+    y="PC2",
+    hue="Archetype",
+    style="Outcome",
+    s=100,
+    alpha=0.8,
+    palette="deep",
+)
+
+plt.title("PCA Projection of Student Behaviors", fontsize=15)
+plt.xlabel(f"PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)")
+plt.ylabel(f"PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)")
+plt.savefig("figs/pca_archetypes.png")

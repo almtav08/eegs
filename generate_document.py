@@ -2,7 +2,7 @@ from doc_generator import DocumentGenerator
 import json
 
 # Credentials
-PROJECT_ID = "hybrid-ridge-476409-c2"
+PROJECT_ID = ""
 REGION = "us-central1"
 
 # 1. Initialize the generator
